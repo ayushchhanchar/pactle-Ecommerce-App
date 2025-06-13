@@ -15,6 +15,17 @@ from datetime import timedelta
 import os
 from dotenv import load_dotenv
 load_dotenv()
+from pathlib import Path
+import os
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+DEBUG = os.getenv("DEBUG", "False") == "True"
+SECRET_KEY = os.getenv("SECRET_KEY", "fallback-secret")
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 
 
