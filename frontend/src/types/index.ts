@@ -2,7 +2,7 @@ export interface Product {
   id: number
   name: string
   description: string
-  price: string
+  price: number
   image_url: string
-  
+  category: string // ⬅️ required for filtering
 }

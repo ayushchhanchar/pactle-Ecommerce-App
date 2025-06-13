@@ -33,6 +33,8 @@ class ProductListView(generics.ListAPIView):
         if max_price:
             queryset = queryset.filter(price__lte=max_price)
 
+        
+
         return queryset
 
 
