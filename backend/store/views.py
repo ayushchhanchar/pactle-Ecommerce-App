@@ -3,11 +3,11 @@
 # from .models import Product
 # from .serializers import ProductSerializer
 
-from rest_framework import generics
+from rest_framework import generics, permissions
 from rest_framework.permissions import AllowAny
 from django.db.models import Q
-from .models import Product
-from .serializers import ProductSerializer
+from .models import Product, Review
+from .serializers import ProductSerializer, ReviewSerializer
 
 class ProductListView(generics.ListAPIView):
     queryset = Product.objects.all()
@@ -47,3 +47,17 @@ class ProductDetailView(generics.RetrieveAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     permission_classes = [AllowAny]  # ✅ Public access
+
+
+class ReviewCreateView(generics.CreateAPIView):
+    serializer_class = ReviewSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        product_id = self.kwargs.get('pk')  # ✅ from URL
+        try:
+            product = Product.objects.get(pk=product_id)
+        except Product.DoesNotExist:
+            raise NotFound("Product not found.")
+        
+        serializer.save(user=self.request.user, product=product)

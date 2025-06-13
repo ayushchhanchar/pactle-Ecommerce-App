@@ -5,6 +5,7 @@ import CartPage from './pages/CartPage'
 import CheckoutPage from './pages/CheckoutPage'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import ProductDetails from './pages/ProductDetails'
 // import ProductList from './components/ProductList'
 
 const App = () => (
@@ -16,6 +17,7 @@ const App = () => (
       <Route path="/checkout" element={<CheckoutPage />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/products/:id" element={<ProductDetails />} />
     </Routes>
   </>
 )
