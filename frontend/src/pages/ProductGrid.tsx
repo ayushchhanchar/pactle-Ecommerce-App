@@ -5,17 +5,78 @@ import { useCart } from '../context/CartContext'
 
 const ProductGrid: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([])
+
+const [search, setSearch] = useState('')
+const [category, setCategory] = useState('')
+const [minPrice, setMinPrice] = useState('')
+const [maxPrice, setMaxPrice] = useState('')
+
   const cart = useCart()
 
   useEffect(() => {
     api.get('/products/').then(res => setProducts(res.data))
   }, [])
+  useEffect(() => {
+  const fetchProducts = async () => {
+    let url = '/products/?'
+    if (search) url += `search=${search}&`
+    if (category) url += `category=${category}&`
+    if (minPrice) url += `min_price=${minPrice}&`
+    if (maxPrice) url += `max_price=${maxPrice}&`
+
+    const res = await api.get(url)
+    setProducts(res.data)
+  }
+
+  fetchProducts()
+}, [search, category, minPrice, maxPrice])
+
 
   return (
     <div className="min-h-screen bg-gray-900 text-white py-12 px-6 sm:px-10">
       <h2 className="text-4xl font-extrabold text-center mb-10 text-indigo-400 drop-shadow-md">
         Explore Trendy Fashion & Digital Picks
       </h2>
+
+
+    <div className="flex flex-wrap gap-4 justify-center mb-8">
+  <input
+    type="text"
+    placeholder="Search..."
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+    className="p-2 rounded bg-gray-800 text-white border border-gray-600 focus:outline-none"
+  />
+
+  <select
+    value={category}
+    onChange={(e) => setCategory(e.target.value)}
+    className="p-2 rounded bg-gray-800 text-white border border-gray-600 focus:outline-none"
+  >
+    <option value="">All Categories</option>
+    <option value="clothing">Clothing</option>
+    <option value="electronics">Electronics</option>
+    <option value="books">Books</option>
+    {/* Add more categories based on your DB */}
+  </select>
+
+  <input
+    type="number"
+    placeholder="Min Price"
+    value={minPrice}
+    onChange={(e) => setMinPrice(e.target.value)}
+    className="p-2 rounded bg-gray-800 text-white border border-gray-600 w-32 focus:outline-none"
+  />
+  <input
+    type="number"
+    placeholder="Max Price"
+    value={maxPrice}
+    onChange={(e) => setMaxPrice(e.target.value)}
+    className="p-2 rounded bg-gray-800 text-white border border-gray-600 w-32 focus:outline-none"
+  />
+</div>
+
+
 
       <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
         {products.map((p) => (
