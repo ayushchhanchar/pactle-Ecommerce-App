@@ -1,65 +1,61 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
+import { FaShoppingCart } from 'react-icons/fa'
 
 const Navbar: React.FC = () => {
   const auth = React.useContext(AuthContext)
   const nav = useNavigate()
 
-  const handleLogout = () => {
-    auth.logout()
-    nav('/login')
-  }
-
   return (
-    <nav className="bg-indigo-600 text-white shadow-md sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <Link to="/" className="text-2xl font-bold tracking-wide hover:text-indigo-200 transition">
-            PACTLE SHOP
-          </Link>
+    <nav className="bg-indigo-700 text-white shadow-md px-6 py-4 flex justify-between items-center">
+      {/* Logo */}
+      <Link to="/" className="text-2xl font-extrabold tracking-wide hover:text-white">
+        PACTLE<span className="text-yellow-300">Shop</span>
+      </Link>
 
-          {/* Navigation Links */}
-          <div className="flex items-center space-x-4 text-sm sm:text-base">
-            <Link
-              to="/"
-              className="hover:text-gray-200 transition-colors duration-200"
+      {/* Nav Links */}
+      <div className="flex items-center space-x-6 text-sm font-medium">
+        <Link to="/" className="hover:underline underline-offset-4 transition">
+          Home
+        </Link>
+
+        <Link to="/cart" className="relative flex items-center hover:underline underline-offset-4">
+          <FaShoppingCart className="mr-1" />
+          Cart
+          {/* Optional badge */}
+          {/* <span className="absolute -top-2 -right-3 bg-yellow-400 text-black text-xs font-bold px-1.5 rounded-full">2</span> */}
+        </Link>
+
+        {auth?.user ? (
+          <>
+            <span className="text-sm text-gray-200">Hi, {auth.user.username}</span>
+            <button
+              onClick={() => {
+                auth.logout()
+                nav('/login')
+              }}
+              className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded transition"
             >
-              Home
+              Logout
+            </button>
+          </>
+        ) : (
+          <>
+            <Link
+              to="/login"
+              className="bg-white text-indigo-700 hover:bg-gray-100 px-4 py-1 rounded transition"
+            >
+              Login
             </Link>
             <Link
-              to="/cart"
-              className="hover:text-gray-200 transition-colors duration-200"
+              to="/register"
+              className="border border-white hover:bg-white hover:text-indigo-700 px-4 py-1 rounded transition"
             >
-              Cart
+              Register
             </Link>
-
-            {auth?.user ? (
-              <button
-                onClick={handleLogout}
-                className="bg-white text-indigo-600 hover:bg-gray-100 font-semibold px-4 py-1.5 rounded transition"
-              >
-                Logout
-              </button>
-            ) : (
-              <>
-                <Link
-                  to="/login"
-                  className="hover:text-gray-200 transition-colors duration-200"
-                >
-                  Login
-                </Link>
-                <Link
-                  to="/register"
-                  className="bg-white text-indigo-600 hover:bg-gray-100 font-semibold px-4 py-1.5 rounded transition"
-                >
-                  Register
-                </Link>
-              </>
-            )}
-          </div>
-        </div>
+          </>
+        )}
       </div>
     </nav>
   )

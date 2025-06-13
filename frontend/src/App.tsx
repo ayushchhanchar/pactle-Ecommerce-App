@@ -5,6 +5,7 @@ import CartPage from './pages/CartPage'
 import CheckoutPage from './pages/CheckoutPage'
 import Login from './pages/Login'
 import Register from './pages/Register'
+// import ProductList from './components/ProductList'
 
 const App = () => (
   <>
