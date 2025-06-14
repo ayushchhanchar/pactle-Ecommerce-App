@@ -25,11 +25,10 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
-# ✅ New model for ratings & reviews
 class Review(models.Model):
     product = models.ForeignKey(Product, related_name='reviews', on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    rating = models.PositiveIntegerField()  # 1 to 5
+    rating = models.PositiveIntegerField()  
     comment = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 

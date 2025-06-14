@@ -21,7 +21,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const response = await api.post(
         '/cart/',
         {
-          product: product.id,  // ✅ Must be product ID, not full object
+          product: product.id,  
           quantity: 1,
         },
         {

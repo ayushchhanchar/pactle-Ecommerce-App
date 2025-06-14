@@ -4,7 +4,6 @@ from store.serializers import ProductSerializer
 from store.models import Product
 
 class CartItemSerializer(serializers.ModelSerializer):
-    # Allow sending "product": 3 (id) from frontend
     product = serializers.PrimaryKeyRelatedField(
         queryset=Product.objects.all(), write_only=True
     )

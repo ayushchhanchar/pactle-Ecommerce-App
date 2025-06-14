@@ -23,7 +23,6 @@ const Navbar: React.FC = () => {
         <Link to="/cart" className="relative flex items-center hover:underline underline-offset-4">
           <FaShoppingCart className="mr-1" />
           Cart
-          {/* Optional badge */}
           {/* <span className="absolute -top-2 -right-3 bg-yellow-400 text-black text-xs font-bold px-1.5 rounded-full">2</span> */}
         </Link>
 

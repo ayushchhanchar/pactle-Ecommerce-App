@@ -1,8 +1,3 @@
-# from rest_framework import generics
-# from rest_framework.permissions import AllowAny
-# from .models import Product
-# from .serializers import ProductSerializer
-
 from rest_framework import generics, permissions
 from rest_framework.permissions import AllowAny
 from django.db.models import Q
@@ -41,12 +36,12 @@ class ProductListView(generics.ListAPIView):
 # class ProductListView(generics.ListAPIView):
 #     queryset = Product.objects.all()
 #     serializer_class = ProductSerializer
-#     permission_classes = [AllowAny]  # ✅ Public access
+#     permission_classes = [AllowAny]  
 
 class ProductDetailView(generics.RetrieveAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    permission_classes = [AllowAny]  # ✅ Public access
+    permission_classes = [AllowAny]  
 
 
 class ReviewCreateView(generics.CreateAPIView):
@@ -54,7 +49,7 @@ class ReviewCreateView(generics.CreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
-        product_id = self.kwargs.get('pk')  # ✅ from URL
+        product_id = self.kwargs.get('pk') 
         try:
             product = Product.objects.get(pk=product_id)
         except Product.DoesNotExist:

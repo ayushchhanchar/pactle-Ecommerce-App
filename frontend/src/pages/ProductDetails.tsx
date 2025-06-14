@@ -51,7 +51,6 @@ const ProductDetails: React.FC = () => {
       alert('Review submitted')
       setRating(0)
       setComment('')
-      // refresh product
       const res = await api.get(`/products/${id}/`)
       setProduct(res.data)
       setReviews(res.data.reviews || [])

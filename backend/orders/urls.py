@@ -3,7 +3,7 @@ from .views import (
     CartItemListCreateView,
     CartItemDetailView,
     OrderCreateView,
-    RazorpayOrderView  # Make sure this exists in views.py
+    RazorpayOrderView  
 )
 
 urlpatterns = [
